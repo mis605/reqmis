@@ -170,11 +170,14 @@
                 class="w-full bg-white dark:bg-dark/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-slate-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all shadow-sm"
                 required>
             </div>
-            <div class="md:col-span-2 p-4 bg-slate-100 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-700/50 mt-2">
-              <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">Fungsi / Departemen</label>
-              <input type="text" name="fungsi" value="MIS Development"
+            <div
+              class="md:col-span-2 p-4 bg-slate-100 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-700/50 mt-2">
+              <label
+                class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">Fungsi
+                Sistem</label>
+              <input type="text" name="fungsi" value="MIS Development" <!--
                 class="w-full bg-transparent border-b border-slate-300 dark:border-slate-600 p-2 text-sm focus:border-blue-500 outline-none mb-2 text-slate-900 dark:text-white">
-              <p class="text-[10px] text-slate-500 italic uppercase">Default fungsi departemen MIS</p>
+              <p class="text-[10px] text-slate-500 italic uppercase">Default Sistem</p> -->
             </div>
           </div>
         </section>
@@ -299,8 +302,9 @@
     </form>
 
     <p class="mt-8 text-center text-xs text-slate-500 font-medium pb-8 lg:pb-0">
-      MIS Request Portal © 2026 
-      <span onclick="previewPDF()" class="cursor-pointer text-slate-500 hover:text-indigo-500 transition-colors ml-1" title="Preview PDF Tersembunyi"> • BAST System</span>
+      MIS Request Portal © 2026
+      <span onclick="previewPDF()" class="cursor-pointer text-slate-500 hover:text-indigo-500 transition-colors ml-1"
+        title="Preview PDF Tersembunyi"> • BAST System</span>
     </p>
   </div>
 
@@ -352,12 +356,12 @@
             if (res.data.perihal) document.querySelector('[name="perihal"]').value = res.data.perihal;
             if (res.data.fungsi) document.querySelector('[name="fungsi"]').value = res.data.fungsi;
             if (res.data.urlApp) document.querySelector('[name="urlApp"]').value = res.data.urlApp;
-            
+
             if (res.data.nama1) document.querySelector('[name="nama1"]').value = res.data.nama1;
             if (res.data.email1) document.querySelector('[name="email1"]').value = res.data.email1;
             if (res.data.atasan1) document.querySelector('[name="atasan1"]').value = res.data.atasan1;
             if (res.data.emailAtasan1) document.querySelector('[name="emailAtasan1"]').value = res.data.emailAtasan1;
-            
+
             if (res.data.atasan2) document.querySelector('[name="atasan2"]').value = res.data.atasan2;
             if (res.data.emailAtasan2) document.querySelector('[name="emailAtasan2"]').value = res.data.emailAtasan2;
             alert('Data Request ' + res.data.id + ' berhasil ditarik. Silakan lengkapi form BAST.');
@@ -418,25 +422,25 @@
         method: 'POST',
         body: JSON.stringify(data)
       })
-      .then(r => r.json())
-      .then(res => {
-        if (res.status === 'Success') {
-          Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: res.message || 'Membuka PDF tab baru...',
-            timer: 2000,
-            showConfirmButton: false
-          });
-          setTimeout(() => {
-            window.open(res.pdfUrl, '_blank');
-          }, 1500);
-        } else {
-          Swal.fire('Gagal', res.message, 'error');
-        }
-      }).catch(e => {
-        Swal.fire('Error Network', e.toString(), 'error');
-      });
+        .then(r => r.json())
+        .then(res => {
+          if (res.status === 'Success') {
+            Swal.fire({
+              icon: 'success',
+              title: 'Berhasil!',
+              text: res.message || 'Membuka PDF tab baru...',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            setTimeout(() => {
+              window.open(res.pdfUrl, '_blank');
+            }, 1500);
+          } else {
+            Swal.fire('Gagal', res.message, 'error');
+          }
+        }).catch(e => {
+          Swal.fire('Error Network', e.toString(), 'error');
+        });
     }
 
     // Theme Toggle Logic
