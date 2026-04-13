@@ -336,6 +336,13 @@
             const perihalEl = document.querySelector('[name="perihal"]');
             if (perihalEl) perihalEl.value = res.data.purpose || res.data.type;
 
+            const noSuratEl = document.querySelector('[name="noSurat"]');
+            if (noSuratEl) {
+              noSuratEl.value = res.data.generatedBast || '';
+              noSuratEl.readOnly = true;
+              noSuratEl.className = "w-full bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-slate-500 font-medium outline-none cursor-not-allowed";
+            }
+
             document.querySelector('[name="nama2"]').value = res.data.pic || '';
             document.querySelector('[name="jabatan2"]').value = res.data.position || '';
             document.querySelector('[name="divisi2"]').value = res.data.departemen || '';

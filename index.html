@@ -44,10 +44,15 @@
                 </h1>
                 <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">Monitoring Progres Pekerjaan</p>
             </div>
-            <div class="flex items-center gap-3 w-full md:w-auto">
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                 <button onclick="toggleTheme()"
-                    class="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-lighter shadow-sm transition-all hover:scale-105 active:scale-95">
+                    class="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-lighter shadow-sm transition-all hover:scale-105 active:scale-95"
+                    title="Dark/Light Mode">
                     <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                </button>
+                <button onclick="goToBast()"
+                    class="px-6 py-3 rounded-2xl bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-500 shadow-lg uppercase tracking-wider transition-all hover:scale-105 active:scale-95">
+                    Buat BAST
                 </button>
                 <button onclick="goToHome()"
                     class="flex-1 md:flex-none px-6 py-3 rounded-2xl bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-500 shadow-lg uppercase tracking-wider transition-all hover:scale-105 active:scale-95">
@@ -81,6 +86,7 @@
                 <table class="w-full text-left border-collapse" id="requestTable">
                     <thead>
                         <tr class="bg-slate-50/50 dark:bg-dark-lighter/30 text-slate-500 dark:text-slate-400">
+                            <th class="px-6 py-4 text-xs font-bold uppercase">Req ID</th>
                             <th class="px-6 py-4 text-xs font-bold uppercase">Tanggal</th>
                             <th class="px-6 py-4 text-xs font-bold uppercase">Unit / Dept</th>
                             <th class="px-6 py-4 text-xs font-bold uppercase">PIC</th>
@@ -150,7 +156,7 @@
             body.innerHTML = '';
 
             if (!data || data.length === 0) {
-                body.innerHTML = '<tr><td colspan="6" class="px-6 py-10 text-center text-slate-400 italic">Data tidak ditemukan.</td></tr>';
+                body.innerHTML = '<tr><td colspan="7" class="px-6 py-10 text-center text-slate-400 italic">Data tidak ditemukan.</td></tr>';
                 return;
             }
 
@@ -163,17 +169,17 @@
                 const remarksTooltip = item.remarks ? `${item.remarks}` : `Status: ${item.status}`;
                 const purposeTooltip = item.purpose ? `${item.purpose}` : 'Tujuan tidak diisi';
 
-                // Fitur BAST action for requests completed or partially completed
                 let bastAction = '';
-                // Allow creating BAST if bastNoSurat is empty, else show BAST status
                 if (item.bastNoSurat) {
                     bastAction = `<div class="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-semibold uppercase tracking-wider">${item.bastStatus || 'BAST Progress'}</div>`;
-                } else {
-                    bastAction = `<div onclick="window.location.href='bast.html?id=${item.id}'" class="text-[10px] text-indigo-500 hover:text-indigo-600 mt-1 cursor-pointer hover:underline font-bold">📝 Buat BAST</div>`;
                 }
 
                 row.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">${displayDate}<br><span class="text-[10px] text-slate-400">${item.id || ''}</span></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-700 dark:text-slate-300">
+                    ${item.id || ''}
+                    ${bastAction}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">${displayDate}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm font-bold text-slate-900 dark:text-white">${item.unit}</div>
                     <div class="text-[10px] text-slate-400 uppercase">${item.departemen}</div>
@@ -189,7 +195,6 @@
                     <div class="text-[10px] text-slate-400 opacity-80 truncate max-w-[180px] cursor-help" title="${purposeTooltip}">
                         ${item.purpose || ''}
                     </div>
-                    ${bastAction}
                 </td>
                 <td class="px-6 py-4 text-center">
                     <span class="status-badge ${statusStyle} cursor-help shadow-sm group-hover:shadow-md" title="${remarksTooltip}">
@@ -249,6 +254,10 @@
 
         function goToHome() {
             window.location.href = 'req.html';
+        }
+
+        function goToBast() {
+            window.location.href = 'bast.html';
         }
     </script>
 </body>
