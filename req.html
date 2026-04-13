@@ -74,8 +74,8 @@
         <!-- Header -->
         <header class="flex justify-between items-start mb-6">
             <div>
-                <a href="javascript:void(0)" onclick="goToPage('bast')" class="header-link inline-block"
-                    title="Buka BAST Dashboard">
+                <a href="javascript:void(0)" onclick="goToPage('monitor')" class="header-link inline-block"
+                    title="Kembali ke Dashboard">
                     <h1
                         class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
                         MIS Request Portal
@@ -147,6 +147,13 @@
                     <input type="text" name="pic_position" placeholder="Contoh: Manager" required
                         class="w-full bg-white dark:bg-dark/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all shadow-sm">
                 </div>
+            </div>
+
+            <div class="space-y-1.5">
+                <label
+                    class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1">Email Requestor</label>
+                <input type="email" name="emailReq" placeholder="Email untuk otorisasi & notifikasi" required
+                    class="w-full bg-white dark:bg-dark/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all shadow-sm">
             </div>
 
             <div class="space-y-1.5">

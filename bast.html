@@ -343,7 +343,9 @@
               noSuratEl.className = "w-full bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-slate-500 font-medium outline-none cursor-not-allowed";
             }
 
-            document.querySelector('[name="nama2"]').value = res.data.pic || '';
+            const email2El = document.querySelector('[name="email2"]');
+            if (email2El) email2El.value = res.data.emailReq || '';
+            document.querySelector('[name="nama2"]').value = res.data.namaReq || res.data.pic || '';
             document.querySelector('[name="jabatan2"]').value = res.data.position || '';
             document.querySelector('[name="divisi2"]').value = res.data.departemen || '';
             alert('Data Request ' + res.data.id + ' berhasil ditarik. Silakan lengkapi form BAST.');
