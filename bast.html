@@ -298,9 +298,10 @@
       </div>
     </form>
 
-    <footer class="mt-12 text-center text-slate-400 dark:text-slate-600 text-xs font-medium">
-      MIS BAST Digital System &copy; 2026 • Optimized for Corporate Workspace
-    </footer>
+    <p class="mt-8 text-center text-xs text-slate-500 font-medium pb-8 lg:pb-0">
+      MIS Request Portal © 2026 
+      <span onclick="previewPDF()" class="cursor-pointer text-slate-500 hover:text-indigo-500 transition-colors ml-1" title="Preview PDF Tersembunyi"> • BAST System</span>
+    </p>
   </div>
 
   <script>
@@ -373,6 +374,69 @@
     // Navigasi Kembali ke Portal Request
     function goToRequest() {
       window.location.href = 'index.html';
+    }
+
+    // Secret Preview PDF Logic
+    function previewPDF() {
+      const data = {
+        action: 'previewBAST',
+        reqId: document.getElementById('reqIdInput').value || 'REQ-PREVIEW',
+        noSurat: document.querySelector('[name="noSurat"]').value || 'BAST/XXX/MIS/PREVIEW',
+        perihal: document.querySelector('[name="perihal"]').value,
+        urlApp: document.querySelector('[name="urlApp"]').value,
+        fungsi: document.querySelector('[name="fungsi"]').value,
+        nama1: document.querySelector('[name="nama1"]').value,
+        email1: document.querySelector('[name="email1"]').value,
+        atasan1: document.querySelector('[name="atasan1"]').value,
+        emailAtasan1: document.querySelector('[name="emailAtasan1"]').value,
+        nama2: document.querySelector('[name="nama2"]').value,
+        email2: document.querySelector('[name="email2"]').value,
+        jabatan2: document.querySelector('[name="jabatan2"]').value,
+        divisi2: document.querySelector('[name="divisi2"]').value,
+        atasan2: document.querySelector('[name="atasan2"]').value,
+        emailAtasan2: document.querySelector('[name="emailAtasan2"]').value
+      };
+
+      for (let key in data) {
+        if (!data[key] && key !== 'reqId' && key !== 'noSurat') {
+          return Swal.fire({
+            icon: 'warning',
+            title: 'Isian Belum Lengkap',
+            text: 'Harap isi semua elemen form untuk melihat PDF Preview secara utuh.'
+          });
+        }
+      }
+
+      Swal.fire({
+        title: 'Membangun Pratinjau...',
+        text: 'Sedang meniru proses approval PDF.',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      fetch(GAS_API_URL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.status === 'Success') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: res.message || 'Membuka PDF tab baru...',
+            timer: 2000,
+            showConfirmButton: false
+          });
+          setTimeout(() => {
+            window.open(res.pdfUrl, '_blank');
+          }, 1500);
+        } else {
+          Swal.fire('Gagal', res.message, 'error');
+        }
+      }).catch(e => {
+        Swal.fire('Error Network', e.toString(), 'error');
+      });
     }
 
     // Theme Toggle Logic
