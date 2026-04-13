@@ -348,6 +348,18 @@
             document.querySelector('[name="nama2"]').value = res.data.namaReq || res.data.pic || '';
             document.querySelector('[name="jabatan2"]').value = res.data.position || '';
             document.querySelector('[name="divisi2"]').value = res.data.departemen || '';
+
+            if (res.data.perihal) document.querySelector('[name="perihal"]').value = res.data.perihal;
+            if (res.data.fungsi) document.querySelector('[name="fungsi"]').value = res.data.fungsi;
+            if (res.data.urlApp) document.querySelector('[name="urlApp"]').value = res.data.urlApp;
+            
+            if (res.data.nama1) document.querySelector('[name="nama1"]').value = res.data.nama1;
+            if (res.data.email1) document.querySelector('[name="email1"]').value = res.data.email1;
+            if (res.data.atasan1) document.querySelector('[name="atasan1"]').value = res.data.atasan1;
+            if (res.data.emailAtasan1) document.querySelector('[name="emailAtasan1"]').value = res.data.emailAtasan1;
+            
+            if (res.data.atasan2) document.querySelector('[name="atasan2"]').value = res.data.atasan2;
+            if (res.data.emailAtasan2) document.querySelector('[name="emailAtasan2"]').value = res.data.emailAtasan2;
             alert('Data Request ' + res.data.id + ' berhasil ditarik. Silakan lengkapi form BAST.');
           } else {
             alert('Data tidak ditemukan!');
